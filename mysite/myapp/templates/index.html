@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Assignment 5</title>
+    <style>
+      body {
+        background-color: #929292;
+        color: #fff;
+      }
+    </style>
+    <script type="text/javascript"> 
+      $(document).ready(function(){
+        var request_method = "{{request_method}}";
+        if (request_method == "get_method") {
+          $("#line_graph_section").hide();
+          $("#heatmap_section").hide();
+        }
+        else {
+          $("#submit_section").hide();
+        }
+      });
+   </script>
+  </head>
+  <body>
+
+    <!-- Start of Header -->
+    <header class="masthead mb-auto text-center" style="margin-top: 5em;">
+      <div class="inner">
+        <h1>Assignment 5</h1>
+        <p>Student Name: Yiwei Shen, Student ID: C0790088</p>
+      </div>
+    </header>
+    <!-- End of Header -->
+
+    <!-- Start of Main -->
+    <main>
+      <div class="container shadow text-center" id="submit_section" style="width: 60%; margin-top: 5em; padding: 2em">
+        <form method="post">
+          {% csrf_token %}
+          <h4>Click the submit button to generate the line graph and heatmap.</h4>
+          <p>(It might take up to several mintues if the internet connection is not stable.) </p>
+          <div class="input-group mb-3">
+            <div class="col text-center">
+              <input type="submit" style="max-width: 200px; margin-top: 20px" class="btn btn-lg btn-secondary">
+            </div>
+          </div>
+        </form>
+      </div>
+  
+      <div class="container shadow text-center" id="line_graph_section" style="width: 60%; margin-top: 5em; padding: 2em">
+        <h2>A line graph of the active cases for each of the Ontario counties over time</h2>
+        <img style="width: 94%; padding: 3%" src="data:image/png;base64, {{ line_graph|safe }}">
+      </div>
+  
+      <div class="container shadow text-center" id="heatmap_section" style="width: 60%; margin-top: 5em; padding: 2em">
+        <h2>Heatmap that shows historical trend correlations between Ontario counties</h2>
+        <img style="width: 94%; padding: 3%" src="data:image/png;base64, {{ heatmap|safe }}">
+      </div>
+    </main>
+    <!-- End of Main -->
+
+    <!-- Start of Footer -->
+    <footer>
+      <div class="text-center p-3" style="margin-top: 5em; padding: 2em">Apr 2021, by Yiwei Shen</div>
+    </footer>
+    <!-- End of Footer -->
+
+  </body>
+</html>
